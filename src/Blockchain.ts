@@ -78,16 +78,13 @@ export class Blockchain {
    * that this method is a private method.
    */
   async _addBlock(block: Block) {
-    console.log('add block');
     block.height = this._height + 1;
     block.time = getTimeInSeconds();
     const latestBlock = await this.getLatestBlock();
-    console.log('latestBlock', latestBlock);
     if (latestBlock && this._height > -1) {
       block.previousBlockHash = latestBlock.hash;
     }
     await block.generateHash();
-    console.log('add to chain', block)
     this._chain.push(block);
     this._height++;
     await this.validateChain();
@@ -136,7 +133,6 @@ export class Blockchain {
     if (!bitcoinMessage.verify(message, address, signature)) {
       throw new Error('Message is invalid!');
     }
-    console.log('create block instance')
     const block = new Block({
       owner: address,
       star
@@ -188,7 +184,6 @@ export class Blockchain {
    * 2. Each Block should check the with the previousBlockHash
    */
   async validateChain() {
-    console.log('validate chain');
     let errorLog: string[] = [];
     let currentBlock = await this.getLatestBlock();
     if (currentBlock === null) {
@@ -201,7 +196,6 @@ export class Blockchain {
       }
       currentBlock = await this.getBlockByHash(currentBlock.previousBlockHash);
     }
-    console.log('errors found', errorLog);
     if (errorLog.length > 0) {
       throw new InvalidChainError(errorLog);
     }

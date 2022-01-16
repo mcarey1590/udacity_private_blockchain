@@ -38,7 +38,6 @@ export class Block {
   async generateHash() {
     const { hash, ...block } = this;
     const jsonString = JSON.stringify(block);
-    console.log('generateHash', jsonString)
     this.hash = SHA256(jsonString).toString();
   }
 
@@ -57,8 +56,6 @@ export class Block {
   async validate() {
     const currentHash = this.hash;
     await this.generateHash();
-    console.log('CurrentHash', currentHash);
-    console.log('NewHash', this.hash);
     return currentHash === this.hash;
   }
 
@@ -77,9 +74,7 @@ export class Block {
     // Parse the data to an object to be retrieve.
     // Resolve with the data if the object isn't the Genesis block
     if (this.height === 0) return null;
-    console.log('decode body');
     const decodedBody = hex2ascii(this.body);
-    console.log('decoded body', decodedBody);
     return JSON.parse(decodedBody);
   }
 }
