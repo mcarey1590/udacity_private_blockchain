@@ -1,0 +1,29 @@
+### Fetch genesis block
+GET http://localhost:8000/block/height/0
+
+### Request validation message
+
+POST http://localhost:8000/requestValidation
+content-type: application/json
+
+{
+    "address": "mhWEotgDTXRhzTv7CZPJHB3gUeaHDbY9a6"
+}
+
+### Submit star
+POST http://localhost:8000/submitstar
+content-type: application/json
+
+{
+    "address": "mhWEotgDTXRhzTv7CZPJHB3gUeaHDbY9a6",
+    "signature": "H8EWfGyBfHc0w2aao5gCg2aovZNOnEx7zq2m7KECaRSdUB655XdqcijpyZyaoaJ+5wHTlZuMQvm1V2ZqNFG6fSs=",
+    "message": "mhWEotgDTXRhzTv7CZPJHB3gUeaHDbY9a6:1642311100:starRegistry",
+    "star": {
+        "dec": "68° 52' 56.9",
+        "ra": "16h 29m 1.0s",
+        "story": "Testing the story 4"
+    }
+}
+
+### Fetch stars owned by me
+GET http://localhost:8000/blocks/mhWEotgDTXRhzTv7CZPJHB3gUeaHDbY9a6
